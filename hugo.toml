@@ -1,0 +1,18 @@
+baseURL = "https://www.tlaloc.us/"
+languageCode = "en-us"
+title = "Tlaloc LLC"
+theme = "tlaloc"
+
+[params]
+  tagline = "Marketing, App Development & Technology Consulting"
+  description = "Tlaloc LLC bridges deep technical expertise with clear, compelling communication to help businesses grow."
+  email = "contact@tlaloc.us"
+  bgImage = "/images/hero-bg.jpg"
+  apiURL = ""
+  turnstileSiteKey = "1x00000000000000000000AA"
+#  turnstileSiteKey = "0x4AAAAAACuOH65u0ItsR4lK"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

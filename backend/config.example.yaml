@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  allowed_origins:
+    - "http://localhost:1313"
+
+turnstile:
+  secret_key: "YOUR_TURNSTILE_SECRET_KEY"
+
+mailgun:
+  domain: "mg.tlaloc.us"
+  api_key: "YOUR_MAILGUN_API_KEY"
+  sender: "Tlaloc LLC <noreply@mg.tlaloc.us>"
+
+contact:
+  recipient: "contact@tlaloc.us"
+
+verification:
+  code_ttl_minutes: 10
+  max_attempts: 5
+
+openai:
+  api_key: "YOUR_OPENAI_API_KEY"
+  model: "gpt-5.4-nano"
+
+csvlog:
+  file_path: "submissions.csv"
+
+rate_limit:
+  max_per_ip_browser: 10
+  max_per_ip: 50
+  window_minutes: 60

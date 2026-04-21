@@ -1,0 +1,81 @@
+<section class="contact" id="contact">
+  <div class="contact__container">
+    <h2 class="section-title section-title--light">Let's Talk</h2>
+    <p class="contact__text">Ready to bring your project to life? We'd love to hear from you.</p>
+    <button type="button" class="contact__button" id="contact-open-btn">Get in Touch</button>
+  </div>
+</section>
+
+<div class="modal" id="contact-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+  <div class="modal__backdrop" id="modal-backdrop"></div>
+  <div class="modal__content">
+    <button type="button" class="modal__close" id="modal-close-btn" aria-label="Close">&times;</button>
+
+    <!-- Step 1: Contact Form -->
+    <div class="modal__step" id="step-form">
+      <h3 class="modal__title" id="modal-title">Get in Touch</h3>
+      <form id="contact-form" novalidate>
+        <div class="form__group">
+          <label for="contact-name" class="form__label">Name</label>
+          <input type="text" id="contact-name" name="name" class="form__input" required
+                 autocomplete="name" placeholder="Your name">
+          <span class="form__error" id="name-error"></span>
+        </div>
+        <div class="form__group">
+          <label for="contact-email" class="form__label">Email</label>
+          <input type="email" id="contact-email" name="email" class="form__input" required
+                 autocomplete="email" placeholder="you@example.com">
+          <span class="form__error" id="email-error"></span>
+        </div>
+        <div class="form__group">
+          <label for="contact-message" class="form__label">How can we help?</label>
+          <textarea id="contact-message" name="message" class="form__input form__textarea" required
+                    rows="4" placeholder="Tell us about your project..."></textarea>
+          <span class="form__error" id="message-error"></span>
+        </div>
+        <div class="form__group">
+          <div id="turnstile-container"></div>
+          <span class="form__error" id="turnstile-error"></span>
+        </div>
+        <div class="form__error form__error--general" id="form-error"></div>
+        <div class="form__actions">
+          <button type="submit" class="form__submit" id="contact-submit-btn">Contact Us</button>
+          <button type="button" class="form__cancel" id="contact-cancel-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Step 2: Verification -->
+    <div class="modal__step modal__step--hidden" id="step-verify">
+      <h3 class="modal__title">Verify Your Email</h3>
+      <p class="modal__text">We've sent a 6-digit code to <strong id="verify-email-display"></strong>. Enter it below.</p>
+      <form id="verify-form" novalidate>
+        <div class="form__group">
+          <label for="verify-code" class="form__label">Verification Code</label>
+          <input type="text" id="verify-code" name="code" class="form__input form__input--code"
+                 required maxlength="6" pattern="[0-9]{6}" inputmode="numeric"
+                 autocomplete="one-time-code" placeholder="000000">
+          <span class="form__error" id="code-error"></span>
+        </div>
+        <div class="form__error form__error--general" id="verify-error"></div>
+        <div class="form__actions">
+          <button type="submit" class="form__submit" id="verify-submit-btn">Verify</button>
+          <button type="button" class="form__cancel" id="verify-back-btn">Back</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Step 3: Success -->
+    <div class="modal__step modal__step--hidden" id="step-success">
+      <div class="modal__success">
+        <svg class="modal__success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <h3 class="modal__title">Message Sent!</h3>
+        <p class="modal__text">Thank you for reaching out. We'll get back to you soon.</p>
+        <button type="button" class="form__submit" id="success-close-btn">Done</button>
+      </div>
+    </div>
+  </div>
+</div>

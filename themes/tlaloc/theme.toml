@@ -1,0 +1,8 @@
+name = "Tlaloc"
+license = "Proprietary"
+description = "Custom theme for Tlaloc LLC"
+homepage = "https://www.tlaloc.us/"
+min_version = "0.110.0"
+
+[author]
+  name = "Tlaloc LLC"

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ block "main" . }}{{ end }}
+  {{ partial "footer.html" . }}
+  {{ $heroJs := resources.Get "js/hero-scroll.js" | minify | fingerprint }}
+  <script src="{{ $heroJs.RelPermalink }}" defer></script>
+  <script>window.__TLALOC_API = '{{ .Site.Params.apiURL }}';</script>
+  {{ $js := resources.Get "js/contact.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" defer></script>
+</body>
+</html>
