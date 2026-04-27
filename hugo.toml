@@ -10,7 +10,6 @@ theme = "tlaloc"
   bgImage = "/images/hero-bg.jpg"
   apiURL = ""
   turnstileSiteKey = "1x00000000000000000000AA"
-#  turnstileSiteKey = "0x4AAAAAACuOH65u0ItsR4lK"
 
 [markup]
   [markup.goldmark]
