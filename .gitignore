@@ -1,0 +1,8 @@
+# Editor backup / autosave files
+*~
+*.bak
+*.swp
+*.swo
+.#*
+\#*\#
+.DS_Store
