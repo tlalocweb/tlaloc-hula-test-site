@@ -12,6 +12,7 @@ import (
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/config"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/csvlog"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/handler"
+	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/iplookup"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/mailer"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/ratelimit"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/store"
@@ -52,7 +53,9 @@ func main() {
 	rl := ratelimit.New(cfg.RateLimit.MaxPerIPBrowser, cfg.RateLimit.MaxPerIP)
 	rl.StartCleanup(time.Duration(cfg.RateLimit.WindowMinutes) * time.Minute)
 
-	h := handler.New(s, m, cfg.Turnstile.SecretKey, c, cl, rl)
+	ipl := iplookup.New()
+
+	h := handler.New(s, m, cfg.Turnstile.SecretKey, c, cl, rl, ipl)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/contact", h.HandleContact)

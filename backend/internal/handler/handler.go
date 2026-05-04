@@ -9,6 +9,7 @@ import (
 
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/classifier"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/csvlog"
+	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/iplookup"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/mailer"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/ratelimit"
 	"github.com/tlaloc-llc/tlalocwebsite/backend/internal/store"
@@ -22,9 +23,10 @@ type Handler struct {
 	classifier      *classifier.Classifier
 	csvlog          *csvlog.Logger
 	ratelimit       *ratelimit.Limiter
+	iplookup        *iplookup.Resolver
 }
 
-func New(s *store.Store, m *mailer.Mailer, turnstileSecret string, c *classifier.Classifier, cl *csvlog.Logger, rl *ratelimit.Limiter) *Handler {
+func New(s *store.Store, m *mailer.Mailer, turnstileSecret string, c *classifier.Classifier, cl *csvlog.Logger, rl *ratelimit.Limiter, ipl *iplookup.Resolver) *Handler {
 	return &Handler{
 		store:           s,
 		mailer:          m,
@@ -32,6 +34,7 @@ func New(s *store.Store, m *mailer.Mailer, turnstileSecret string, c *classifier
 		classifier:      c,
 		csvlog:          cl,
 		ratelimit:       rl,
+		iplookup:        ipl,
 	}
 }
 
@@ -123,9 +126,16 @@ func (h *Handler) HandleContact(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ipInfo, err := h.iplookup.Lookup(r.Context(), remoteIP)
+	if err != nil {
+		log.Printf("ip lookup error for %s: %v", remoteIP, err)
+	}
+
 	// Log to CSV (always)
 	if err := h.csvlog.Log(csvlog.Entry{
 		IP:                remoteIP,
+		ASN:               ipInfo.ASN,
+		ASNOrg:            ipInfo.Org,
 		BrowserID:         req.BrowserID,
 		Name:              req.Name,
 		Email:             req.Email,

@@ -11,6 +11,8 @@ import (
 
 type Entry struct {
 	IP                string
+	ASN               uint32
+	ASNOrg            string
 	BrowserID         string
 	Name              string
 	Email             string
@@ -25,7 +27,7 @@ type Entry struct {
 }
 
 var header = []string{
-	"timestamp", "ip", "browser_id", "name", "email", "message",
+	"timestamp", "ip", "asn", "asn_org", "browser_id", "name", "email", "message",
 	"final_label", "real_interest_score", "spam_score", "sales_pitch_score",
 	"confidence", "reason_short", "used_model",
 }
@@ -64,9 +66,15 @@ func (l *Logger) Log(e Entry) error {
 	l.mu.Lock()
 	defer l.mu.Unlock()
 
+	asnStr := ""
+	if e.ASN != 0 {
+		asnStr = strconv.FormatUint(uint64(e.ASN), 10)
+	}
 	row := []string{
 		time.Now().UTC().Format(time.RFC3339),
 		e.IP,
+		asnStr,
+		e.ASNOrg,
 		e.BrowserID,
 		e.Name,
 		e.Email,
